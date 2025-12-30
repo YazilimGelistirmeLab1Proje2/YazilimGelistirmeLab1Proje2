@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing; // Color sınıfı için gerekli
 using System.Linq;
 using System.Windows.Forms;
 
@@ -7,6 +8,10 @@ namespace SocialNetwork
 {
     public partial class Form1 : Form
     {
+        // Not: Projenizde 'graph' değişkeninin tanımlı olduğu yerden emin olun.
+        // Eğer tanımlı değilse sınıf seviyesinde şu satır gerekebilir:
+        // private Graph graph;
+
         public Form1()
         {
             InitializeComponent();
@@ -16,7 +21,37 @@ namespace SocialNetwork
         {
         }
 
-        // --- 1. MATRİS (KOMŞULUK) RAPORU ---
+        // --- 1. RASTGELE DÜĞÜM EKLE ---
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            if (graph == null) graph = new Graph();
+
+            Random rnd = new Random();
+
+            // Yeni ID belirle (Mevcut en büyük ID'nin bir fazlası)
+            int newId = (graph.Nodes.Count > 0) ? graph.Nodes.Keys.Max() + 1 : 1;
+
+            // Yeni düğümü oluştur
+            UserNode newNode = new UserNode
+            {
+                Id = newId,
+                UserName = "User " + newId,
+                ActiveScore = Math.Round(rnd.NextDouble(), 2), // 0.0 - 1.0 arası
+                InteractionCount = rnd.Next(10, 100),
+                ConnectionCount = rnd.Next(1, 50),
+                X = rnd.Next(50, pnlGraph.Width - 50),
+                Y = rnd.Next(50, pnlGraph.Height - 50),
+                UserNodeColor = Color.Green
+            };
+
+            // Düğümü listeye ekle
+            graph.Nodes.Add(newId, newNode);
+
+            pnlGraph.Invalidate();
+            MessageBox.Show($"{newNode.UserName} eklendi. (Henüz kimseye bağlı değil)");
+        }
+
+        // --- 2. MATRİS (KOMŞULUK) RAPORU ---
         private void btnMatrix_Click(object sender, EventArgs e)
         {
             if (graph == null) return;
@@ -40,7 +75,7 @@ namespace SocialNetwork
             MessageBox.Show(rapor, "Ağ Raporu");
         }
 
-        // --- 2. BAĞLANTI EKLE ---
+        // --- 3. BAĞLANTI EKLE ---
         private void btnEdgeEkle_Click(object sender, EventArgs e)
         {
             if (graph == null) return;
@@ -61,7 +96,7 @@ namespace SocialNetwork
                         return;
                     }
 
-                    // Ağırlık Hesaplama (Öklid)
+                    // Ağırlık Hesaplama (Öklid Uzaklığı)
                     double diffActive = Math.Pow(u1.ActiveScore - u2.ActiveScore, 2);
                     double diffInteract = Math.Pow(u1.InteractionCount - u2.InteractionCount, 2);
                     double diffConnect = Math.Pow(u1.ConnectionCount - u2.ConnectionCount, 2);
@@ -92,7 +127,7 @@ namespace SocialNetwork
             }
         }
 
-        // --- 3. BAĞLANTI SİL ---
+        // --- 4. BAĞLANTI SİL ---
         private void btnEdgeSil_Click(object sender, EventArgs e)
         {
             if (graph == null) return;
@@ -128,7 +163,7 @@ namespace SocialNetwork
             }
         }
 
-        // --- 4. VERİLERİ KAYDET (CSV) ---
+        // --- 5. VERİLERİ KAYDET (CSV) ---
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (graph == null) return;
