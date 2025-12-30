@@ -56,6 +56,7 @@ namespace SocialNetwork
        
         private void btnCentrality_Click(object sender, EventArgs e)
         {
+            // Merkeziyet skoruna gore siralama.
             if (graph == null)
             {
                 MessageBox.Show("Önce CSV yükle!");
