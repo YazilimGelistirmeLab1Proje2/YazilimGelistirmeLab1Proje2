@@ -9,6 +9,7 @@ namespace SocialNetworkAnalysis.Algorithms
 {
     public interface IGraphAlgorithm
     {
+        // Refactoring: Tum algoritmalar ortak arayuz altinda toplandi.
         string Name { get; }
 
         void Execute(Model.Graph graph, UserNode startNode, UserNode endNode = null);
