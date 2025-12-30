@@ -22,6 +22,10 @@ namespace SocialNetworkAnalysis.Model
         public Color UserNodeColor { get; set; } = Color.CornflowerBlue;
 
         public List<Edge> OutgoingEdges { get; set; }
+        public UserNode()
+        {
+            OutgoingEdges = new List<Edge>();
+        }
 
         public UserNode(int id, string username, double active, double interaction, double connection)
         {

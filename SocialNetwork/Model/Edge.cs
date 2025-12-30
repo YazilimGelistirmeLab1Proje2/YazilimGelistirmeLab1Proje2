@@ -12,6 +12,10 @@ namespace SocialNetworkAnalysis.Model
         public UserNode Target { get; set; }
         public double Weight { get; set; } // Ağırlık (örneğin, etkileşim sayısı
 
+        public Edge()
+        {
+            
+        }
         public Edge(UserNode source, UserNode target)
         {
             Source = source;
