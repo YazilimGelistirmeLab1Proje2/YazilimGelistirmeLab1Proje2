@@ -30,7 +30,7 @@ namespace SocialNetwork.Algorithms
             int colorIndex = 0;
 
             // 2. Renklendirme Döngüsü
-            // Hala renksiz (beyaz) düğüm olduğu sürece devam et
+            // Hala renksiz düğüm olduğu sürece devam et
             while (sortedNodes.Any(n => n.UserNodeColor == Color.White))
             {
                 // Paletten sıradaki rengi seç (Eğer renk biterse başa dön veya Rastgele üret)
@@ -53,7 +53,6 @@ namespace SocialNetwork.Algorithms
                     // Bu düğümün, ŞU ANKİ RENGE boyanmış bir komşusu var mı?
                     bool isSafe = true;
 
-                    // Hem mevcut komşularına bak, hem de bu turda boyadıklarımıza bak
                     foreach (var edge in node.OutgoingEdges)
                     {
                         if (edge.Target.UserNodeColor == currentColor)
@@ -63,7 +62,7 @@ namespace SocialNetwork.Algorithms
                         }
                     }
 
-                    // Eğer komşularda bu renk yoksa, boya gitsin!
+                
                     if (isSafe)
                     {
                         node.UserNodeColor = currentColor;
