@@ -1,4 +1,4 @@
-# 🕸️ Sosyal Ağ Analizi ve Görselleştirme Aracı (SNA Tool)
+# 🕸️ Sosyal Ağ Analizi ve Görselleştirme Aracı 
 
 **Ders:** Yazılım Geliştirme Laboratuvarı - I  
 **Dönem:** 2025-2026 Güz  
@@ -150,10 +150,14 @@ classDiagram
 ### 5.1. Uygulama Ekran Görüntüleri
 Uygulama arayüzü, kullanıcı dostu olması için modern form tasarımı ile hazırlanmıştır.
 
-*(Not: Ekran görüntüleri projenin `screenshots` klasöründe yer almaktadır.)*
 
-![Uygulama Ana Ekran](screenshots/main_gui.png)
-*Şekil 1: Graf Görselleştirme ve Kontrol Paneli*
+
+![Uygulama Ana Ekran](screenshots/Ekran görüntüsü 2025-12-31 132928.png)
+![Welsh-Powell Renklendirmesi](screenshots/Ekran görüntüsü 2025-12-31 132816.png)
+![BFS Algoritması](screenshots/Ekran görüntüsü 2025-12-31 132900.png)
+![DFS Algoritması](screenshots/Ekran görüntüsü 2025-12-31 152835.png)
+
+
 
 ### 5.2. Test Senaryoları ve Sonuçlar
 Projede algoritmaların doğruluğu ve performansı farklı büyüklükteki veri setleri (15 ve 50 düğüm) ile test edilmiştir.
