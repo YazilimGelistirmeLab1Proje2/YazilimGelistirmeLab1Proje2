@@ -57,13 +57,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Başla] --> B[Mesafeleri Sonsuz Yap, Kaynak=0]
-    B --> C{Ziyaret Edilmemiş Var mı?}
-    C -- Hayır --> Z[Bitir ve Yolu Çiz]
-    C -- Evet --> D[En Küçük Mesafeli Düğümü Seç (u)]
-    D --> E[Komşuları (v) Gez]
-    E --> F{Yeni Mesafe < Eski Mesafe?}
-    F -- Evet --> G[Mesafeyi Güncelle (Relaxation)]
+    A[Başla] --> B[Mesafeleri sonsuz yap, kaynak = 0]
+    B --> C{Ziyaret edilmemiş düğüm var mı?}
+    C -- Hayır --> Z[Bitir ve yolu çiz]
+    C -- Evet --> D[En küçük mesafeli düğümü seç]
+    D --> E[Komşuları gez]
+    E --> F{Yeni mesafe daha kısa mı?}
+    F -- Evet --> G[Mesafeyi güncelle]
     F -- Hayır --> E
     G --> C
 ```
