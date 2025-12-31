@@ -8,10 +8,6 @@ namespace SocialNetwork
 {
     public partial class Form1 : Form
     {
-        // Not: Projenizde 'graph' değişkeninin tanımlı olduğu yerden emin olun.
-        // Eğer tanımlı değilse sınıf seviyesinde şu satır gerekebilir:
-        // private Graph graph;
-
         public Form1()
         {
             InitializeComponent();
@@ -28,15 +24,13 @@ namespace SocialNetwork
 
             Random rnd = new Random();
 
-            // Yeni ID belirle (Mevcut en büyük ID'nin bir fazlası)
             int newId = (graph.Nodes.Count > 0) ? graph.Nodes.Keys.Max() + 1 : 1;
 
-            // Yeni düğümü oluştur
             UserNode newNode = new UserNode
             {
                 Id = newId,
                 UserName = "User " + newId,
-                ActiveScore = Math.Round(rnd.NextDouble(), 2), // 0.0 - 1.0 arası
+                ActiveScore = Math.Round(rnd.NextDouble(), 2),
                 InteractionCount = rnd.Next(10, 100),
                 ConnectionCount = rnd.Next(1, 50),
                 X = rnd.Next(50, pnlGraph.Width - 50),
@@ -44,7 +38,6 @@ namespace SocialNetwork
                 UserNodeColor = Color.Green
             };
 
-            // Düğümü listeye ekle
             graph.Nodes.Add(newId, newNode);
 
             pnlGraph.Invalidate();
@@ -96,7 +89,6 @@ namespace SocialNetwork
                         return;
                     }
 
-                    // Ağırlık Hesaplama (Öklid Uzaklığı)
                     double diffActive = Math.Pow(u1.ActiveScore - u2.ActiveScore, 2);
                     double diffInteract = Math.Pow(u1.InteractionCount - u2.InteractionCount, 2);
                     double diffConnect = Math.Pow(u1.ConnectionCount - u2.ConnectionCount, 2);
@@ -104,7 +96,6 @@ namespace SocialNetwork
                     double euclidean = Math.Sqrt(diffActive + diffInteract + diffConnect);
                     double weight = 1.0 / (1.0 + euclidean);
 
-                    // Çift taraflı kenar ekleme
                     Edge edge1 = new Edge { Source = u1, Target = u2, Weight = weight };
                     u1.OutgoingEdges.Add(edge1);
                     graph.Edges.Add(edge1);
@@ -190,6 +181,40 @@ namespace SocialNetwork
 
                 System.IO.File.WriteAllLines(sfd.FileName, lines);
                 MessageBox.Show("Veriler başarıyla kaydedildi!");
+            }
+        }
+
+        // --- 6. SEÇİLİ DÜĞÜMÜ SİL ---
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+            if (graph == null) return;
+
+            if (int.TryParse(txtStart.Text, out int idToDelete))
+            {
+                if (graph.Nodes.ContainsKey(idToDelete))
+                {
+                    // 1. Düğümü ana listeden sil
+                    graph.Nodes.Remove(idToDelete);
+
+                    // 2. Bu düğümle ilgili tüm kenarları (ilişkileri) her yerden temizle
+                    graph.Edges.RemoveAll(edge => edge.Source.Id == idToDelete || edge.Target.Id == idToDelete);
+
+                    foreach (var node in graph.Nodes.Values)
+                    {
+                        node.OutgoingEdges.RemoveAll(edge => edge.Target.Id == idToDelete);
+                    }
+
+                    pnlGraph.Invalidate();
+                    MessageBox.Show($"ID: {idToDelete} başarıyla silindi.");
+                }
+                else
+                {
+                    MessageBox.Show("Bu ID'ye sahip kullanıcı bulunamadı.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Silmek istediğiniz kişinin ID'sini 'Start' kutusuna yazın.");
             }
         }
     }
