@@ -150,13 +150,10 @@ classDiagram
 ### 5.1. Uygulama Ekran Görüntüleri
 Uygulama arayüzü, kullanıcı dostu olması için modern form tasarımı ile hazırlanmıştır.
 
-
-
-![Uygulama Ana Ekran]([screenshots/Ekran görüntüsü 2025-12-31 132928.png](https://github.com/YazilimGelistirmeLab1Proje2/YazilimGelistirmeLab1Proje2/blob/cad945abf5d2806bad6c6cab1cb0523cbce71f82/screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132928.png))
-![Welsh-Powell Renklendirmesi]([screenshots/Ekran görüntüsü 2025-12-31 132816.png](https://github.com/YazilimGelistirmeLab1Proje2/YazilimGelistirmeLab1Proje2/blob/cad945abf5d2806bad6c6cab1cb0523cbce71f82/screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132816.png))
-![BFS Algoritması]([screenshots/Ekran görüntüsü 2025-12-31 132900.png](https://github.com/YazilimGelistirmeLab1Proje2/YazilimGelistirmeLab1Proje2/blob/cad945abf5d2806bad6c6cab1cb0523cbce71f82/screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132900.png))
-![DFS Algoritması]([screenshots/Ekran görüntüsü 2025-12-31 152835.png](https://github.com/YazilimGelistirmeLab1Proje2/YazilimGelistirmeLab1Proje2/blob/cad945abf5d2806bad6c6cab1cb0523cbce71f82/screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20152835.png))
-
+![Uygulama Ana Ekran](screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132928.png)
+![Welsh-Powell Renklendirmesi](screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132816.png)
+![BFS Algoritması](screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20132900.png)
+![DFS Algoritması](screenshots/Ekran%20g%C3%B6r%C3%BCnt%C3%BCs%C3%BC%202025-12-31%20152835.png)
 
 
 ### 5.2. Test Senaryoları ve Sonuçlar
