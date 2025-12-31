@@ -12,309 +12,183 @@
 | :--- | :--- | :--- |
 | **Geliştirici** | **Fatih Bilgin** | 231307019 |
 | **Geliştirici** | **Efe Aydın** | 231307010 |
-| **Teslim Tarihi** | 02.01.2026 | — |
+| **Teslim Tarihi** | 02.01.2026 | |
 
 ---
 
 ## 📝 2. Giriş ve Problem Tanımı
 
-### 2.1 Problemin Tanımı
+### 2.1. Problemin Tanımı
+Günümüz dünyasında sosyal ağlar, ulaşım ağları ve iletişim altyapıları milyonlarca düğümden (node) ve milyarlarca bağlantıdan (edge) oluşan karmaşık graf yapılarıdır. Bu devasa veri yığınları üzerinde; *"İki nokta arasındaki en maliyetsiz yol nedir?"*, *"Ağdaki en etkili/merkezi düğüm hangisidir?"* veya *"Hangi düğümler birbiriyle daha sıkı bir topluluk oluşturur?"* gibi soruların manuel yöntemlerle cevaplanması imkansızdır. Bu tür problemlerin çözümü için Graf Teorisi tabanlı yüksek performanslı algoritmalara ihtiyaç duyulmaktadır.
 
-Günümüz dünyasında sosyal ağlar, ulaşım ağları ve iletişim altyapıları milyonlarca düğüm (node) ve milyarlarca bağlantıdan (edge) oluşan karmaşık graf yapılarıdır. Bu büyüklükteki veri yapıları üzerinde;
-
-- İki nokta arasındaki en kısa yol nedir?
-- Ağdaki en merkezi / etkili düğüm hangisidir?
-- Hangi düğümler bir topluluk oluşturmaktadır?
-
-gibi soruların manuel yöntemlerle cevaplanması mümkün değildir. Bu tür problemlerin çözümü için **Graf Teorisi** tabanlı algoritmalara ihtiyaç duyulmaktadır.
-
----
-
-### 2.2 Projenin Amacı
-
-Bu projenin amacı, kullanıcılar arasındaki ilişkileri **Graf Modeli** üzerinde simüle eden ve analiz eden bir masaüstü uygulaması geliştirmektir.  
-
-Uygulama;
-
-- CSV / JSON veri okuma
-- Graf görselleştirme
-- BFS, DFS, Dijkstra, A*, Welsh-Powell algoritmalarını çalıştırma
-- Analiz sonuçlarını raporlama
-
-özelliklerini desteklemektedir.
+### 2.2. Projenin Amacı
+Bu projenin amacı; kullanıcı verilerini ve etkileşimlerini **Graf Modeli** üzerinde simüle eden, Nesneye Dayalı Programlama (OOP) prensiplerine sadık kalarak geliştirilmiş bir masaüstü yazılımı oluşturmaktır. Yazılım, CSV/JSON formatındaki verileri okuyarak görselleştirmeli; **BFS, DFS, Dijkstra, A* (A-Star)** ve **Welsh-Powell** gibi algoritmaları çalıştırarak analiz sonuçlarını raporlamalıdır.
 
 ---
 
 ## ⚙️ 3. Algoritmalar ve Analizler
 
-### 3.1 BFS (Breadth-First Search) – Sığ Öncelikli Arama
+Projede kullanılan algoritmalar, çalışma mantıkları ve literatür bilgileri aşağıda detaylandırılmıştır.
 
-**Çalışma Mantığı:**  
-Başlangıç düğümünden itibaren tüm komşular katman katman ziyaret edilir. Kuyruk (Queue) veri yapısı kullanılır.
-
-**Literatür:**  
-Konrad Zuse (1945), E. F. Moore (1959)
-
-**Zaman Karmaşıklığı:**  
-\[
-O(V + E)
-\]
+### 3.1. BFS (Breadth-First Search) - Sığ Öncelikli Arama
+* **Çalışma Mantığı:** Başlangıç düğümünden başlayarak önce tüm doğrudan komşuları, sonra onların komşularını ziyaret eder. Arama işlemi bir "dalga" şeklinde katman katman yayılır.
+* **Literatür:** 1945 yılında Konrad Zuse tarafından kavramsallaştırılmış, 1959'da E.F. Moore tarafından en kısa yol problemi için resmileştirilmiştir.
+* **Karmaşıklık:** $O(V + E)$ (V: Düğüm, E: Kenar)
 
 ```mermaid
 flowchart TD
-    A[Başla] --> B[Kuyruğa başlangıç düğümünü ekle]
-    B --> C{Kuyruk boş mu?}
+    A[Başla] --> B[Kuyruğa Başlangıç Düğümünü Ekle]
+    B --> C{Kuyruk Boş mu?}
     C -- Evet --> D[Bitir]
-    C -- Hayır --> E[Kuyruktan çıkar ve ziyaret et]
-    E --> F[Ziyaret edilmemiş komşuları kuyruğa ekle]
+    C -- Hayır --> E[Kuyruktan Çıkar ve Ziyaret Et]
+    E --> F[Ziyaret Edilmemiş Komşuları Kuyruğa Ekle]
     F --> C
-3.2 DFS (Depth-First Search) – Derin Öncelikli Arama
-Çalışma Mantığı:
-Bir yol boyunca en derine gidilir, gidilecek yer kalmayınca geri dönülür (backtracking). Stack veri yapısı kullanılır.
+```
 
-Literatür:
-Charles Pierre Trémaux – 19. yüzyıl
+### 3.2. DFS (Depth-First Search) - Derin Öncelikli Arama
+* **Çalışma Mantığı:** Bir yola girer ve gidebildiği en son noktaya kadar (derinlemesine) ilerler. Gidecek yer kalmadığında bir önceki düğüme geri döner (backtracking). Stack (Yığın) veri yapısı kullanılır.
+* **Literatür:** 19. yüzyılda Fransız matematikçi Charles Pierre Trémaux tarafından labirent çözümleri için kullanılmıştır.
+* **Karmaşıklık:** $O(V + E)$
 
-Zaman Karmaşıklığı:
+### 3.3. Dijkstra En Kısa Yol Algoritması
+* **Çalışma Mantığı:** Ağırlıklı graflarda (weighted graphs) başlangıç noktasından diğer tüm noktalara olan en kısa mesafeyi hesaplar. "Greedy" (Açgözlü) yaklaşımını kullanır.
+* **Literatür:** Edsger W. Dijkstra tarafından 1956'da tasarlanmış ve 1959'da yayınlanmıştır.
+* **Karmaşıklık:** $O(E + V \log V)$ (Priority Queue kullanıldığında).
 
-𝑂
-(
-𝑉
-+
-𝐸
-)
-O(V+E)
-3.3 Dijkstra En Kısa Yol Algoritması
-Çalışma Mantığı:
-Ağırlıklı graflarda en kısa yolu bulur. Greedy yaklaşımı kullanır.
-
-Literatür:
-Edsger W. Dijkstra (1956)
-
-Zaman Karmaşıklığı:
-
-𝑂
-(
-𝐸
-+
-𝑉
-log
-⁡
-𝑉
-)
-O(E+VlogV)
-mermaid
-Kodu kopyala
+```mermaid
 flowchart TD
-    A[Başla] --> B[Mesafeleri sonsuz yap, kaynak = 0]
-    B --> C{Ziyaret edilmemiş düğüm var mı?}
-    C -- Hayır --> Z[Bitir]
-    C -- Evet --> D[En küçük mesafeli düğümü seç]
-    D --> E[Komşuları gez]
-    E --> F{Yeni mesafe < eski mesafe?}
-    F -- Evet --> G[Mesafeyi güncelle]
+    A[Başla] --> B[Mesafeleri Sonsuz Yap, Kaynak=0]
+    B --> C{Ziyaret Edilmemiş Var mı?}
+    C -- Hayır --> Z[Bitir ve Yolu Çiz]
+    C -- Evet --> D[En Küçük Mesafeli Düğümü Seç (u)]
+    D --> E[Komşuları (v) Gez]
+    E --> F{Yeni Mesafe < Eski Mesafe?}
+    F -- Evet --> G[Mesafeyi Güncelle (Relaxation)]
     F -- Hayır --> E
     G --> C
-3.4 A* (A-Star) Algoritması
-Çalışma Mantığı:
-Dijkstra algoritmasına ek olarak sezgisel (heuristic) fonksiyon kullanır.
+```
 
-𝑓
-(
-𝑛
-)
-=
-𝑔
-(
-𝑛
-)
-+
-ℎ
-(
-𝑛
-)
-f(n)=g(n)+h(n)
-Projede Öklid Mesafesi heuristic olarak kullanılmıştır.
+### 3.4. A* (A-Star) Algoritması
+* **Çalışma Mantığı:** Dijkstra'nın optimize edilmiş halidir. Maliyet fonksiyonuna ($g(n)$) ek olarak, hedefe olan tahmini mesafeyi ($h(n)$ - Heuristic) de hesaba katar. Projede Heuristic olarak Öklid mesafesi kullanılmıştır.
+* **Literatür:** Hart, Nilsson ve Raphael tarafından 1968 yılında geliştirilmiştir.
+* **Karmaşıklık:** En iyi durumda $O(E)$, en kötü durumda üstel olabilir.
 
-Literatür:
-Hart, Nilsson, Raphael (1968)
+### 3.5. Welsh-Powell Graf Renklendirme
+* **Çalışma Mantığı:** Komşu düğümlerin aynı renge sahip olmamasını sağlar (Kromatik Sayı). Düğümler derecelerine (bağlantı sayılarına) göre büyükten küçüğe sıralanır ve sırayla boyanır.
+* **Literatür:** 1967 yılında Welsh ve Powell tarafından yayınlanmıştır.
+* **Karmaşıklık:** $O(V^2)$
 
-3.5 Welsh-Powell Graf Renklendirme
-Çalışma Mantığı:
-Komşu düğümlerin aynı renkte olmamasını sağlar. Düğümler dereceye göre sıralanır.
+---
 
-Zaman Karmaşıklığı:
+## 🏗️ 4. Sistem Mimarisi ve OOP Tasarımı
 
-𝑂
-(
-𝑉
-2
-)
-O(V 
-2
- )
-🏗️ 4. Sistem Mimarisi ve OOP Tasarımı
-Proje SOLID prensiplerine uygun olarak geliştirilmiştir.
-Yeni algoritmaların kolay eklenebilmesi için Strategy Design Pattern kullanılmıştır.
+Proje geliştirilirken **SOLID** prensiplerine ve **Design Pattern** yapılarına sadık kalınmıştır. Özellikle yeni algoritmaların sisteme kolayca entegre edilebilmesi için **Strategy Design Pattern** kullanılmıştır.
 
-Temel Sınıflar
-UserNode: Kullanıcı bilgileri
+### Temel Sınıflar ve İşlevleri
+* **UserNode:** Düğüm verilerini (ID, İsim, Konum, Puan) tutar.
+* **Edge:** İki düğüm arasındaki bağlantıyı ve ağırlığı tutar.
+* **Graph:** Tüm düğüm ve kenarları yöneten ana veri yapısıdır.
+* **IGraphAlgorithm:** Tüm algoritmaların türetildiği arayüzdür (interface).
 
-Edge: İki düğüm arası bağlantı
+### Sınıf Diyagramı (Class Diagram)
 
-Graph: Graf yapısı
-
-IGraphAlgorithm: Algoritma arayüzü
-
-FileManager: Dosya işlemleri
-
-Dinamik Ağırlık Hesaplama
-𝑊
-𝑒
-𝑖
-𝑔
-ℎ
-𝑡
-𝑖
-,
-𝑗
-=
-1
-1
-+
-Δ
-𝐴
-𝑘
-𝑡
-𝑖
-𝑓
-𝑙
-𝑖
-𝑘
-2
-+
-Δ
-𝐸
-𝑡
-𝑘
-𝑖
-𝑙
-𝑒
-𝑠
-\c
-𝑖
-𝑚
-2
-+
-Δ
-𝐵
-𝑎
-𝑔
-˘
-𝑙
-𝑎
-𝑛
-𝑡
-ı
-2
-Weight 
-i,j
-​
- = 
-1+ 
-ΔAktiflik 
-2
- +ΔEtkile 
-s
-\c
-​
- im 
-2
- +ΔBa 
-g
-˘
-​
- lantı 
-2
- 
-​
- 
-1
-​
- 
-mermaid
-Kodu kopyala
+```mermaid
 classDiagram
     class UserNode {
-        int Id
-        string UserName
-        double ActiveScore
-        Point Location
+        +int Id
+        +string UserName
+        +double ActiveScore
+        +List~Edge~ OutgoingEdges
+        +Point Location
     }
 
     class Edge {
-        UserNode Source
-        UserNode Target
-        double Weight
+        +UserNode Source
+        +UserNode Target
+        +double Weight
     }
 
     class Graph {
-        Dictionary Nodes
-        AddNode()
-        AddEdge()
+        +Dictionary~int, UserNode~ Nodes
+        +void AddNode()
+        +void AddEdge()
     }
 
     class IGraphAlgorithm {
         <<interface>>
-        Execute()
-        GetResult()
+        +void Execute(Graph g, UserNode start, UserNode end)
+        +string GetResult()
     }
 
-    IGraphAlgorithm <|.. BFS
-    IGraphAlgorithm <|.. DFS
+    class Dijkstra {
+        +void Execute()
+    }
+    class BFS {
+        +void Execute()
+    }
+    class WelshPowell {
+        +void Execute()
+    }
+
+    class FileManager {
+        +Graph LoadFromCSV(string path)
+        +void SaveToJSON(Graph g, string path)
+    }
+
+    Graph *-- UserNode
+    UserNode *-- Edge
     IGraphAlgorithm <|.. Dijkstra
+    IGraphAlgorithm <|.. BFS
     IGraphAlgorithm <|.. WelshPowell
-📱 5. Uygulama, Testler ve Sonuçlar
-5.1 Uygulama Arayüzü
-Uygulama modern ve kullanıcı dostu bir arayüz ile tasarlanmıştır.
-Ekran görüntüleri screenshots/ klasöründe yer almaktadır.
+    IGraphAlgorithm <|.. AStar
+```
 
-5.2 Test Sonuçları
-Test Ortamı: Intel i7 – 16GB RAM
+---
 
-Algoritma	15 Düğüm	50 Düğüm	Açıklama
-BFS	0.06 ms	0.25 ms	En hızlı gezinme
-DFS	2.00 ms	5.80 ms	Rekürsif yapı
-Dijkstra	3.00 ms	11.20 ms	Stabil
-A*	2.00 ms	6.50 ms	%40 daha hızlı
-Welsh-Powell	0.08 ms	0.35 ms	Optimize
+## 📱 5. Uygulama, Testler ve Sonuçlar
 
-5.3 Örnek Senaryo – En Kısa Yol
-Kaynak: ID 1
-Hedef: ID 15
+### 5.1. Uygulama Ekran Görüntüleri
+Uygulama arayüzü, kullanıcı dostu olması için modern form tasarımı ile hazırlanmıştır.
 
-Sonuç Yol:
+*(Not: Ekran görüntüleri projenin `screenshots` klasöründe yer almaktadır.)*
 
-Kodu kopyala
-1 → 4 → 9 → 15
-Toplam Maliyet: 24 birim
+![Uygulama Ana Ekran](screenshots/main_gui.png)
+*Şekil 1: Graf Görselleştirme ve Kontrol Paneli*
 
-🎯 6. Sonuç ve Tartışma
-6.1 Başarılar
-✅ Graf görselleştirme
+### 5.2. Test Senaryoları ve Sonuçlar
+Projede algoritmaların doğruluğu ve performansı farklı büyüklükteki veri setleri (15 ve 50 düğüm) ile test edilmiştir.
 
-✅ Genişletilebilir OOP mimarisi
+**Test Ortamı:** Intel i7 İşlemci, 16GB RAM.
 
-✅ Yüksek performans
+| Algoritma | 15 Düğüm (Süre) | 50 Düğüm (Süre) | Karmaşıklık Yorumu |
+| :--- | :---: | :---: | :--- |
+| **Welsh-Powell (Renklendirme)** | 8.00 ms | 13.00 ms | Sıralama maliyeti nedeniyle veri arttıkça süre artmaktadır. |
+| **En Popüler (Centrality)** | 5.00 ms | 18.50 ms | En popüler düğümü bulmak için tüm ağ taranmıştır. |
+| **Dijkstra** | 3.00 ms | 11.20 ms | Stabil performans. |
+| **A* (A-Star)** | 2.00 ms | 6.50 ms | Heuristic hesaplama sayesinde Dijkstra'dan ~%40 daha hızlıdır. |
+| **DFS** | 2.00 ms | 5.80 ms | Rekürsif yapı küçük veride hızlı sonuç vermiştir. |
+| **BFS** | 0.06 ms | 0.25 ms | Gezinme algoritmaları arasında en hızlısıdır. |
+| **Topluluk Analizi** | 0.08 ms | 0.35 ms | Optimize edilmiş algoritma, en hızlı sonuç verenlerden biridir. |
 
-6.2 Sınırlılıklar
-Çok büyük veri setlerinde çizim yavaşlayabilmektedir
+### 5.3. Örnek Senaryo: En Kısa Yol
+* **Senaryo:** Kullanıcı A (ID:1) ile Kullanıcı B (ID:15) arasındaki en kısa yolun bulunması.
+* **Girdi:** Kaynak=1, Hedef=15
+* **Sonuç:** [1 -> 4 -> 9 -> 15]. Toplam Maliyet: 24 birim.
+* **Görsel:** Yol üzerindeki düğümler yeşil renk ile işaretlenmiştir.
 
-Şu an sadece yönlü graflar desteklenmektedir
+---
 
-6.3 Olası Geliştirmeler
-PostgreSQL / Neo4j entegrasyonu
+## 🎯 6. Sonuç ve Tartışma
 
-Force-Directed Layout
+### 6.1. Başarılar
+* ✅ **Görselleştirme:** Karmaşık veri yapıları (Graf), GDI+ kütüphanesi kullanılarak anlaşılır bir şekilde görselleştirilmiştir.
+* ✅ **OOP Mimarisi:** Proje, genişletilebilir ve bakımı kolay bir kod yapısına sahiptir. Yeni bir algoritma eklemek, mevcut kodu bozmadan mümkündür.
+* ✅ **Performans:** Algoritmalar optimize edilmiş veri yapıları (HashSet, Dictionary) kullanılarak yüksek hızda çalışmaktadır.
 
-Web tabanlı versiyon
+### 6.2. Sınırlılıklar
+* Çok büyük veri setlerinde (10.000+ düğüm) çizim kütüphanesinden kaynaklı yavaşlamalar olabilmektedir.
+* Şu an için sadece yönlü (directed) graflar tam olarak desteklenmektedir.
+
+### 6.3. Olası Geliştirmeler
+* Veri tabanı entegrasyonu (PostgreSQL veya Neo4j) eklenerek verilerin kalıcı olması sağlanabilir.
+* Graf çizimi için "Force-Directed Layout" (Fizik tabanlı yerleşim) algoritması eklenerek düğümlerin daha estetik dağılması sağlanabilir.
