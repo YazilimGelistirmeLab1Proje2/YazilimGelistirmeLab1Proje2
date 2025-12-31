@@ -1,5 +1,6 @@
 # 🕸️ Sosyal Ağ Analizi ve Görselleştirme Aracı (SNA Tool)
 
+
 **Ders:** Yazılım Geliştirme Laboratuvarı - I  
 **Dönem:** 2025-2026 Güz  
 **Bölüm:** Kocaeli Üniversitesi - Bilişim Sistemleri Mühendisliği  
@@ -10,8 +11,8 @@
 
 | Rol | Ad Soyad | Öğrenci No |
 | :--- | :--- | :--- |
-| **Geliştirici** | **Fatih Bilgin** | [Numaranı Yaz] |
-| **Geliştirici** | **[Ekip Arkadaşının Adı]** | [Numarası] |
+| **Geliştirici** | **Fatih Bilgin** | 231307019 |
+| **Geliştirici** | **Efe Aydın** | 231307010 |
 | **Teslim Tarihi** | 02.01.2026 | |
 
 ---
